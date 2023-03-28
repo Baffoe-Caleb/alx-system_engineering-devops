@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-# Script that installs Nginx server and redirects /redirect_me
+# bash script to make /redirect_me redirect to another site
 apt-get -y update
 apt-get -y install nginx
-echo "Holberton School" > /var/www/html/index.nginx-debian.html
-sed -i "s/server_name _;/server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/luischaparroc permanent;/" /etc/nginx/sites-available/default
-service nginx start
+mv /usr/share/nginx/html/index.html /usr/share/nginx/html/index.txt
+echo "Holberton School" > /usr/share/nginx/html/index.html
+new_string=".rules\n\t\trewrite ^\/redirect_me https:\/\/www.youtube.com\/watch?v=QH2-TGUlwu4 permanent;\n"
+sed -i "s/.rules/$new_string/" /etc/nginx/sites-available/default
+service nginx restart
